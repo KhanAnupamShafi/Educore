@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
 import SignIn from '../pages/Login';
 import NotFound from '../pages/NotFount';
+import Register from '../pages/Register';
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/signup',
-        element: <p>Register</p>,
+        element: <Register />,
       },
       // Not-found route
       {

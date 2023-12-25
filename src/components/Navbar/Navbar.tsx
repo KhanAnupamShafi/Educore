@@ -4,6 +4,7 @@ import Avatar from '../../assets/Avatar.png';
 import BellImg from '../../assets/bell.svg';
 import SearchImg from '../../assets/search.svg';
 import SettingsImg from '../../assets/settings.svg';
+import { userLoggedOut } from '../../redux/auth/authSlice';
 import MobileNav from './MobileNav';
 
 const NavBar = () => {
