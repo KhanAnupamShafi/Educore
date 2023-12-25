@@ -27,16 +27,19 @@ interface PasswordIndicator {
 interface ErrorState {
   email: string;
   password: string;
+  name: string;
 }
 
 const Register = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [indicator, setIndicator] =
     useState<PasswordIndicator | null>();
   const [errors, setErrors] = useState<ErrorState>({
     email: '',
     password: '',
+    name: '',
   });
   const [responseError, setResponseError] = useState('');
   const [register, { data, error, isLoading }] =
@@ -51,8 +54,8 @@ const Register = () => {
         setResponseError(JSON.parse(errMsg).error);
       }
     }
-    if (data?.id && data?.token) {
-      navigate('/');
+    if (data?._id && data?.email) {
+      navigate('/login');
     }
   }, [data, error]);
 
@@ -64,12 +67,17 @@ const Register = () => {
   const score = indicator ? indicator.score : -1;
   const feedback = indicator ? indicator.feedback : undefined;
 
-  console.log('feedback', score);
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setResponseError('');
     // Validate email-password
-    if (!email) {
+    if (!name) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        name: 'This field is required',
+      }));
+      return;
+    } else if (!email) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         email: 'This field is required',
@@ -96,10 +104,9 @@ const Register = () => {
     } else {
       setErrors((prevErrors) => ({ ...prevErrors, password: '' }));
     }
-
-    register({ email: email, password: password });
+    register({ userName: name, email: email, password: password });
   };
-  const handleInputFocus = (field: 'email' | 'password') => {
+  const handleInputFocus = (field: 'email' | 'password' | 'name') => {
     setErrors((prevErrors) => ({ ...prevErrors, [field]: '' }));
   };
 
@@ -126,6 +133,39 @@ const Register = () => {
           Sign up to join with Educor
         </p>
         <div className="space-y-6 mt-14 text-secondary">
+          <div className="relative">
+            <label
+              htmlFor="name"
+              className="drop-shadow-md text-sm mb-0.5">
+              User Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              onChange={(event) => setName(event.target.value)}
+              onFocus={() => handleInputFocus('name')}
+              value={name}
+              placeholder="Enter User Name"
+              className={`block text-sm mt-1 py-3 px-4 w-[292px] rounded-lg  border ${
+                errors.name
+                  ? 'border-error shadow-3xl'
+                  : 'outline-[#D6BBFB] '
+              }`}
+              required
+            />
+            <div
+              className="relative error-container"
+              style={{
+                height: '20px',
+                visibility: errors.name ? 'visible' : 'hidden',
+              }}>
+              {errors.name && (
+                <p className="absolute top-2 text-red-600 text-sm ml-2">
+                  {errors.name}
+                </p>
+              )}
+            </div>
+          </div>
           <div className="relative">
             <label
               htmlFor="email"

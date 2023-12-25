@@ -8,11 +8,12 @@ import { RootState } from '../../app/store';
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://reqres.in/api',
+    baseUrl: 'http://localhost:8000/api/',
     prepareHeaders: async (headers, { getState }) => {
-      const token = (getState() as RootState)?.auth.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+      const accessToken = (getState() as RootState)?.auth.accessToken;
+      console.log((getState() as RootState)?.auth, 'accessToken');
+      if (accessToken) {
+        headers.set('authorization', `Bearer ${accessToken}`);
       }
       return headers;
     },

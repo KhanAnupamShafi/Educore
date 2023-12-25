@@ -25,7 +25,7 @@ const SignIn = () => {
         setResponseError(JSON.parse(errMsg).error);
       }
     }
-    if (data?.token) {
+    if (data?.accessToken) {
       navigate('/');
     }
   }, [data, error]);

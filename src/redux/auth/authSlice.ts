@@ -1,16 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { token: undefined };
+const initialState = { accessToken: undefined };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     userLoggedIn: (state, action) => {
-      state.token = action.payload.token;
+      state.accessToken = action.payload.accessToken;
     },
     userLoggedOut: (state) => {
-      state.token = undefined;
+      console.log('called');
+      state.accessToken = undefined;
     },
   },
 });

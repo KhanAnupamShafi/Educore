@@ -1,13 +1,16 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../app/hook';
 import Avatar from '../../assets/Avatar.png';
+import Admin from '../../assets/admin.png';
 import BellImg from '../../assets/bell.svg';
 import SearchImg from '../../assets/search.svg';
 import SettingsImg from '../../assets/settings.svg';
+import useAuth from '../../hooks/useAuth';
 import { userLoggedOut } from '../../redux/auth/authSlice';
 import MobileNav from './MobileNav';
 
 const NavBar = () => {
+  const isAdmin = useAuth();
   const styles = {
     className:
       'block px-3 py-2  hover:text-white drop-shadow-xl hover:underline transition',
@@ -16,7 +19,7 @@ const NavBar = () => {
   };
   const navItems = [
     { name: `Home`, path: `/` },
-    { name: `Users`, path: `/users` },
+    { name: `Manage Course`, path: `/course` },
     { name: `Project`, path: `/project` },
     { name: `Task`, path: `/task` },
     { name: `Reporting`, path: `/reporting` },
@@ -107,7 +110,25 @@ const NavBar = () => {
               </div>
               <img className="p-2.5" src={BellImg} alt="" />
             </div>
-            <img className="dropdown" src={Avatar} alt="User Image" />
+            {!isAdmin ? (
+              <img className="" src={Avatar} alt="User Image" />
+            ) : (
+              <img className="w-20" src={Admin} alt="User Image" />
+            )}
+            {isAdmin ? (
+              <span
+                onClick={handleLogout}
+                className="rounded cursor-pointer bg-red-400 py-1 px-3 text-xs font-bold">
+                Logout
+              </span>
+            ) : (
+              <Link
+                to={'/login'}
+                onClick={handleLogout}
+                className="rounded bg-green-400 py-1 px-3 text-xs font-bold">
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       </div>
