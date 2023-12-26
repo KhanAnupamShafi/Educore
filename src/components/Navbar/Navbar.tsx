@@ -113,7 +113,11 @@ const NavBar = () => {
             {!isAdmin ? (
               <img className="" src={Avatar} alt="User Image" />
             ) : (
-              <img className="w-20" src={Admin} alt="User Image" />
+              <img
+                className="w-12 h-[50px]"
+                src={Admin}
+                alt="User Image"
+              />
             )}
             {isAdmin ? (
               <span

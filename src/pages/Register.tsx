@@ -118,13 +118,13 @@ const Register = () => {
         onSubmit={handleSubmit}
         className="py-12 px-16 md:px-16 bg-white rounded-xl shadow-lg z-20">
         <div className="flex justify-start items-center mb-5 cursor-pointer gap-4">
-          <div className="w-20 h-20">
+          <Link to={'/'} className="w-20 h-20">
             <img
               className="w-full h-full"
               src="/images/educor.svg"
               alt=""
             />
-          </div>{' '}
+          </Link>{' '}
           <h1 className="text-3xl font-bold text-center text-secondary">
             Sign Up{' '}
           </h1>

@@ -72,7 +72,7 @@ const SingleCourse = () => {
           <Link
             to={`/course-update/${courseData._id}`}
             className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300">
-            Enroll Now
+            Edit
           </Link>
         </div>
       </div>
